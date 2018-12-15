@@ -1,0 +1,108 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/RelativeLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="133dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true" >
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="緯度(Latitude)"/>
+
+        <TextView
+            android:id="@+id/LogText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="false"
+            android:ems="10"
+            android:inputType="text"
+            android:text="120.284464"
+            android:layout_alignParentTop="true"
+            android:layout_alignRight="@+id/customer_id2"
+            android:layout_alignEnd="@+id/customer_id2" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="經度(Longtitude)" />
+
+        <TextView
+            android:id="@+id/LatText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+
+            android:inputType="text"
+            android:text="22.734139"
+            android:layout_alignTop="@+id/textView2"
+            android:layout_toRightOf="@+id/textView1"
+            android:layout_toEndOf="@+id/textView1">
+
+            <requestFocus />
+        </TextView>
+
+        <Button
+            android:id="@+id/submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:text="標註"
+            android:layout_below="@+id/LatText"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:id="@+id/customer_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="使用者代號"
+            android:layout_alignBottom="@+id/submit"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <EditText
+            android:id="@+id/customer_id2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="false"
+            android:ems="10"
+            android:inputType="text"
+            android:text=""
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/textView2"
+            android:layout_alignRight="@+id/LatText"
+            android:layout_alignEnd="@+id/LatText" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="關掉自動定位"
+            android:id="@+id/button4"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+    </RelativeLayout>
+
+    <WebView
+        android:id="@+id/webview"
+        android:layout_width="fill_parent"
+        android:layout_height="629dp" />
+
+</LinearLayout>
