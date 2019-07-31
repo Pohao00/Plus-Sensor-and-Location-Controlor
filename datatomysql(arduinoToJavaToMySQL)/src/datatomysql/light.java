@@ -30,10 +30,10 @@ public class light implements SerialPortEventListener {
 
 		while (portEnum.hasMoreElements()) {//�������ort
 			CommPortIdentifier currPortId = (CommPortIdentifier) portEnum.nextElement();//摰儔currPortId
-				if (currPortId.getName().equals("COM5")) {//閮剖�rduino serial port
-					portId = currPortId;
-					break;
-				}	
+			if (currPortId.getName().equals("COM5")) {//閮剖�rduino serial port
+				portId = currPortId;
+				break;
+			}	
 		}
 		
 		if (portId == null) {//憒�om port閮剖�隤歹�����銵�
@@ -51,11 +51,11 @@ public class light implements SerialPortEventListener {
 			//open the streams
 			input = new BufferedReader(new InputStreamReader(serialPort.getInputStream()));
 
-
 			// add event listeners
 			serialPort.addEventListener(this);// Registers a SerialPortEventListener object to listen for SerialEvents.
 			serialPort.notifyOnDataAvailable(true);//Expresses interest in receiving notification when input data is available.
-		} catch (Exception e) {
+		} 
+		catch (Exception e) {
 			System.err.println(e.toString());
 		}
 	}
@@ -71,7 +71,7 @@ public class light implements SerialPortEventListener {
 	            connection = DriverManager.getConnection(DB_URL, USER, PASS);
 	            System.out.println("SQL Connection to database established!");
 	            
-				String inputLine=input.readLine();
+				String inputLine = input.readLine();
 				System.out.println(inputLine);
 				
 				
@@ -85,20 +85,23 @@ public class light implements SerialPortEventListener {
 	            
 	            statement.close();
 	            connection.close();
-			} catch (SQLException e) {
+			} 
+			catch (SQLException e) {
 	        	//Handle errors for JDBC
 	            System.out.println("Connection Failed! Check output console");
 	            return;
-	        } catch (Exception e) {
+	        } 
+	        catch (Exception e) {
 				//System.err.println(e.toString());
-			}finally {
+			}
+			finally {
 	            try
 	            {
-	            	
 	                if(connection != null)
 	                    connection.close();
 	                System.out.println("Connection closed !!");
-	            } catch (SQLException e) {
+	            } 
+	            catch (SQLException e) {
 	                e.printStackTrace();
 	            }
 	        }
@@ -107,13 +110,11 @@ public class light implements SerialPortEventListener {
 		         } 
 		                catch (InterruptedException e) {}*/
 		}
-		
 	}
 
 	public static void main(String[] args) throws Exception {
 		light main = new light();//creates an object of the class
 		main.initialize();
-		
     	//call to ensure the driver is registered
         try
         {
@@ -123,7 +124,6 @@ public class light implements SerialPortEventListener {
             System.out.println("MySQL JDBC Driver not found !!");
             return;
         }
-        
 		System.out.println("Started");
 	}
 }

@@ -29,22 +29,20 @@ volatile boolean QS = false;        // becomes true when Arduoino finds a beat.
 // Regards Serial OutPut  -- Set This Up to your needs
 static boolean serialVisual = true;   // Set to 'false' by Default.  Re-set to 'true' to see Arduino Serial Monitor ASCII Visual Pulse 
 
-
-void setup(){
-  pinMode(blinkPin,OUTPUT);         // pin that will blink to your heartbeat!
-  pinMode(fadePin,OUTPUT);          // pin that will fade to your heartbeat!
+void setup() {
+  pinMode(blinkPin, OUTPUT);         // pin that will blink to your heartbeat!
+  pinMode(fadePin, OUTPUT);          // pin that will fade to your heartbeat!
   Serial.begin(9600);             // we agree to talk fast!
   interruptSetup();                 // sets up to read Pulse Sensor signal every 2mS 
-   // IF YOU ARE POWERING The Pulse Sensor AT VOLTAGE LESS THAN THE BOARD VOLTAGE, 
-   // UN-COMMENT THE NEXT LINE AND APPLY THAT VOLTAGE TO THE A-REF PIN
+  // IF YOU ARE POWERING The Pulse Sensor AT VOLTAGE LESS THAN THE BOARD VOLTAGE, 
+  // UN-COMMENT THE NEXT LINE AND APPLY THAT VOLTAGE TO THE A-REF PIN
 //   analogReference(EXTERNAL);   
 }
 
 
 //  Where the Magic Happens
-void loop(){
-  
-    serialOutput() ;       
+void loop() {
+  serialOutput() ;       
     
   if (QS == true){     // A Heartbeat Was Found
                        // BPM and IBI have been Determined
@@ -59,15 +57,11 @@ void loop(){
   delay(20);                             //  take a break
 }
 
-
-
-
-
-void ledFadeToBeat(){
+void ledFadeToBeat() {
     fadeRate -= 15;                         //  set LED fade value
-    fadeRate = constrain(fadeRate,0,255);   //  keep LED fade value from going into negative numbers!
-    analogWrite(fadePin,fadeRate);          //  fade LED
-  }
+    fadeRate = constrain(fadeRate, 0, 255);   //  keep LED fade value from going into negative numbers!
+    analogWrite(fadePin, fadeRate);          //  fade LED
+}
 
 
 

@@ -22,10 +22,8 @@ public class Service2Example extends Activity {
             public void onClick(View v) {
 
                 // TODO Auto-generated method stub
-
-                if (  myButton.getText().toString()=="輸入代號" )
+                if (  myButton.getText().toString() == "輸入代號" )
                 {
-
                     myButton.setText("重新輸入");
                     // 透過Intent指定要啟動的Service
                     Intent i = new Intent(Service2Example.this, Main4Activity.class);
@@ -42,7 +40,7 @@ public class Service2Example extends Activity {
             }
         });
     }
-    public boolean onKeyDown(int keyCode, KeyEvent event){
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {
             Intent intent = new Intent();
             intent.setClass(Service2Example.this, Main2Activity.class);//回到選單頁

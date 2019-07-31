@@ -67,7 +67,8 @@ public class MainActivity extends Service {
             while (true) {
                 try {
                     Thread.sleep(1000);
-                } catch (InterruptedException e) {
+                } 
+                catch (InterruptedException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
@@ -77,7 +78,8 @@ public class MainActivity extends Service {
                     threadHandler.sendMessage(msg);
                     timer2++;
                     //=========================================================================================================================================
-                } else
+                } 
+                else
                     break;
             }
         }
@@ -91,29 +93,33 @@ public class MainActivity extends Service {
             while (true) {
                 try {
                     Thread.sleep(5000);
-                } catch (InterruptedException e) {
+                } 
+                catch (InterruptedException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
                 if (!stop) {
                     insert2();
-                } else
+                } 
+                else
                     break;
             }
         }
-        }
+    }
     private class TimerThread3 extends Thread {
         public void run() {
             while (true) {
                 try {
                     Thread.sleep(6000);
-                } catch (InterruptedException e) {
+                } 
+                catch (InterruptedException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
                 if (!stop) {
                     delete();
-                } else
+                } 
+                else
                     break;
             }
         }
@@ -184,55 +190,54 @@ public class MainActivity extends Service {
 //======================================================================================================================================
     public void insert2()
     {
-            Criteria criteria = new Criteria();
-            best = manager.getBestProvider(criteria, true);
-            int minTime = 1000;
-            float minDistance = 0;
-            if (best != null)
+        Criteria criteria = new Criteria();
+        best = manager.getBestProvider(criteria, true);
+        int minTime = 1000;
+        float minDistance = 0;
+        if (best != null)
+        {
+            currentLocation = manager.getLastKnownLocation(best);
+            manager.requestLocationUpdates(best, minTime, minDistance, listener);
+        } 
+        else
+        {
+            currentLocation = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            manager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
+                                        minTime, minDistance, listener);
+        }
 
-            {
-                currentLocation = manager.getLastKnownLocation(best);
-                manager.requestLocationUpdates(best, minTime, minDistance, listener);
-            } else
+        getLocationInfo(currentLocation);
+        //updatePosition(); // ????
 
-            {
-                currentLocation = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                manager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
-                        minTime, minDistance, listener);
-            }
+        SimpleDateFormat nowdate = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        nowdate.setTimeZone(TimeZone.getTimeZone("GMT+8"));
+        String sdate = nowdate.format(new java.util.Date());
+        time = sdate;
+        insert();
 
-            getLocationInfo(currentLocation);
-            //updatePosition(); // ????
+    }
+    public void getLocationInfo(Location location) {
+        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+                .detectDiskReads()
+                .detectDiskWrites()
+                .detectNetwork()   // or .detectAll() for all detectable problems
+                .penaltyLog()
+                .build());
 
-            SimpleDateFormat nowdate = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            nowdate.setTimeZone(TimeZone.getTimeZone("GMT+8"));
-            String sdate = nowdate.format(new java.util.Date());
-            time = sdate;
-            insert();
-
-}
-public void getLocationInfo(Location location) {
-    StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
-            .detectDiskReads()
-            .detectDiskWrites()
-            .detectNetwork()   // or .detectAll() for all detectable problems
-            .penaltyLog()
-            .build());
-
-    StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
-            .detectLeakedSqlLiteObjects()
-            .penaltyLog()
-            .penaltyDeath()
-            .build());
-    StringBuffer str = new StringBuffer();
-    str.append("?????(Provider): "+location.getProvider());
-    str.append("\n??(Latitude): " + Double.toString(location.getLatitude()));
-    str.append("\n??(Longitude): " + Double.toString(location.getLongitude()));
-    str.append("\n??(Altitude): " + Double.toString(location.getAltitude()));
-    latit =  Double.toString(location.getLatitude()).toString();
-    longt = Double.toString(location.getLongitude()).toString();
+        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+                .detectLeakedSqlLiteObjects()
+                .penaltyLog()
+                .penaltyDeath()
+                .build());
+        StringBuffer str = new StringBuffer();
+        str.append("?????(Provider): "+location.getProvider());
+        str.append("\n??(Latitude): " + Double.toString(location.getLatitude()));
+        str.append("\n??(Longitude): " + Double.toString(location.getLongitude()));
+        str.append("\n??(Altitude): " + Double.toString(location.getAltitude()));
+        latit =  Double.toString(location.getLatitude()).toString();
+        longt = Double.toString(location.getLongitude()).toString();
     //return str.toString();
-}
+    }
 
     private LocationListener listener = new LocationListener() {
         @Override
@@ -296,9 +301,9 @@ public void getLocationInfo(Location location) {
         try
         {
             JSONObject json_data = new JSONObject(result);
-            code=(json_data.getInt("code"));
+            code = (json_data.getInt("code"));
 
-            if(code==1)
+            if(code == 1)
             {
                 Toast.makeText(getBaseContext(), "Inserted Successfully",
                         Toast.LENGTH_SHORT).show();
@@ -319,8 +324,8 @@ public void getLocationInfo(Location location) {
         ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
         nameValuePairs.add(new BasicNameValuePair("numb",customer_id.toString()));
         num2++;
-        if(num2==2)
-            num2=0;
+        if(num2 == 2)
+            num2 = 0;
 
         try
         {
@@ -360,8 +365,8 @@ public void getLocationInfo(Location location) {
         try
         {
             JSONObject json_data = new JSONObject(result);
-            code=(json_data.getInt("code"));
-            if(code==1)
+            code = (json_data.getInt("code"));
+            if(code == 1)
             {
 
                 Toast.makeText(getBaseContext(), "Delete Successfully",

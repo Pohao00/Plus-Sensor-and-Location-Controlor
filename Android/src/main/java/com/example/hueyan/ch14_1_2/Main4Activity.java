@@ -35,7 +35,6 @@ import java.util.ArrayList;
 import java.util.TimeZone;
 import java.util.Timer;
 
-
 public class Main4Activity extends Service{
     private static final int STOP = 0x1111;
     private static final int PRINT = 0x2222;
@@ -66,7 +65,8 @@ public class Main4Activity extends Service{
             while (true) {
                 try {
                     Thread.sleep(1000);
-                } catch (InterruptedException e) {
+                } 
+                catch (InterruptedException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
@@ -76,7 +76,8 @@ public class Main4Activity extends Service{
                     threadHandler.sendMessage(msg);
                     timer2++;
                     //=========================================================================================================================================
-                } else
+                } 
+                else
                     break;
             }
         }
@@ -90,13 +91,15 @@ public class Main4Activity extends Service{
             while (true) {
                 try {
                     Thread.sleep(5000);
-                } catch (InterruptedException e) {
+                } 
+                catch (InterruptedException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
                 if (!stop) {
                     insert2();
-                } else
+                } 
+                else
                     break;
             }
         }
@@ -106,13 +109,15 @@ public class Main4Activity extends Service{
             while (true) {
                 try {
                     Thread.sleep(10000);
-                } catch (InterruptedException e) {
+                } 
+                catch (InterruptedException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
                 if (!stop) {
                     delete();
-                } else
+                } 
+                else
                     break;
             }
         }
@@ -164,7 +169,8 @@ public class Main4Activity extends Service{
         //delete();
         try {
             Thread.sleep(1000);
-        } catch (InterruptedException e) {
+        } 
+        catch (InterruptedException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
@@ -200,7 +206,8 @@ public class Main4Activity extends Service{
         {
             currentLocation = manager.getLastKnownLocation(best);
             manager.requestLocationUpdates(best, minTime, minDistance, listener);
-        } else
+        } 
+        else
         {
             currentLocation = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             manager.requestLocationUpdates(LocationManager.GPS_PROVIDER,

@@ -23,8 +23,10 @@ public class DBConnector {
             HttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost("http://140.120.14.118/AndroidConnectDB/android_connect_db.php");
             ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
+
             params.add(new BasicNameValuePair("query_string", query_string));
             httpPost.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
+
             HttpResponse httpResponse = httpClient.execute(httpPost);
             //view_account.setText(httpResponse.getStatusLine().toString());
             HttpEntity httpEntity = httpResponse.getEntity();
@@ -33,12 +35,14 @@ public class DBConnector {
             BufferedReader bufReader = new BufferedReader(new InputStreamReader(inputStream, "utf-8"), 8);
             StringBuilder builder = new StringBuilder();
             String line = null;
+            
             while((line = bufReader.readLine()) != null) {
                 builder.append(line + "\n");
             }
             inputStream.close();
             result = builder.toString();
-        } catch(Exception e) {
+        } 
+        catch(Exception e) {
             // Log.e("log_tag", e.toString());
         }
         return result;

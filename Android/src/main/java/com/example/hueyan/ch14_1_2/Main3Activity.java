@@ -72,18 +72,17 @@ public class Main3Activity extends Activity implements LocationListener {
         myButton4 = (Button) findViewById(R.id.button4);
         myButton4.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
                 // TODO Auto-generated method stub
-
                 if (myButton4.getText().equals("關掉自動定位")) {
                     myButton4.setText("開啟自動定位");
 
-                } else {
+                } 
+                else {
                     myButton4.setText("關掉自動定位");
                 }
             }
         });
-        if (mostRecentLocation!=null && myButton4.getText().toString() == "關掉自動定位"){
+        if (mostRecentLocation!=null && myButton4.getText().toString() == "關掉自動定位") {
             LatText.setText("" + mostRecentLocation.getLatitude());
             LogText.setText("" + mostRecentLocation.getLongitude());
             final String centerURL = "javascript:centerAt(" +
@@ -108,7 +107,7 @@ public class Main3Activity extends Activity implements LocationListener {
             TableLayout.LayoutParams row_layout = new TableLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             TableRow.LayoutParams view_layout = new TableRow.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             try {
-                String result = DBConnector.executeQuery("SELECT * FROM sample WHERE customer_id='"+customer_id2.getText().toString()+"' ");
+                String result = DBConnector.executeQuery("SELECT * FROM sample WHERE customer_id='" + customer_id2.getText().toString() + "' ");
 
                 JSONArray jsonArray = new JSONArray(result);
                 for(int i = 0; i < jsonArray.length(); i++) {
@@ -125,7 +124,8 @@ public class Main3Activity extends Activity implements LocationListener {
                     user_pwd.setText(jsonData.getString("longt"));
                     name=jsonData.getString("longt");
                 }
-            } catch(Exception e) {
+            } 
+            catch(Exception e) {
                 // Log.e("log_tag", e.toString());
             }
 
@@ -136,19 +136,18 @@ public class Main3Activity extends Activity implements LocationListener {
                 final String markURL = "javascript:mark(" + id + "," + name + ")";
                 webView.loadUrl(markURL);
 
-                    final String centerURL = "javascript:centerAt(" + id + "," + name + ")";
-                    webView.loadUrl(centerURL);
+                final String centerURL = "javascript:centerAt(" + id + "," + name + ")";
+                webView.loadUrl(centerURL);
             }
         }
     };
 
     /** Sets up the WebView object and loads the URL of the page **/
-    private void setupWebView(){
-
+    private void setupWebView() {
         webView = (WebView) findViewById(R.id.webview);
         webView.getSettings().setJavaScriptEnabled(true);
         //Wait for the page to load then send the location information
-        webView.setWebViewClient(new WebViewClient(){
+        webView.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url)
             {
@@ -163,7 +162,7 @@ public class Main3Activity extends Activity implements LocationListener {
     @Override
     public void onLocationChanged(Location location) {//�w���m���ܮɷ|���檺��k
         // TODO Auto-generated method stub
-        if (location !=null && myButton4.getText().equals("關掉自動定位") ){
+        if (location !=null && myButton4.getText().equals("關掉自動定位") ) {
             LatText.setText("" + location.getLatitude());
             LogText.setText("" + location.getLongitude());
             final String centerURL = "javascript:centerAt(" +
@@ -187,7 +186,7 @@ public class Main3Activity extends Activity implements LocationListener {
     public void onStatusChanged(String provider, int status, Bundle extras) {
         // TODO Auto-generated method stub
     }
-    public boolean onKeyDown(int keyCode, KeyEvent event){
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {
             Intent intent = new Intent();
             intent.setClass(Main3Activity.this, Main2Activity.class);//回到選單頁

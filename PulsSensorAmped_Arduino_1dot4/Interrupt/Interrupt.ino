@@ -1,6 +1,3 @@
-
-
-
 volatile int rate[10];                    // array to hold last ten IBI values
 volatile unsigned long sampleCounter = 0;          // used to determine pulse timing
 volatile unsigned long lastBeatTime = 0;           // used to find IBI
@@ -10,7 +7,6 @@ volatile int thresh = 525;                // used to find instant moment of hear
 volatile int amp = 100;                   // used to hold amplitude of pulse waveform, seeded
 volatile boolean firstBeat = true;        // used to seed rate array so we startup with reasonable BPM
 volatile boolean secondBeat = false;      // used to seed rate array so we startup with reasonable BPM
-
 
 void interruptSetup(){     
   // Initializes Timer2 to throw an interrupt every 2mS.
@@ -30,8 +26,8 @@ ISR(TIMER2_COMPA_vect){                         // triggered when Timer2 counts 
   sampleCounter += 2;                         // keep track of the time in mS with this variable
   int N = sampleCounter - lastBeatTime;       // monitor the time since the last beat to avoid noise
 
-    //  find the peak and trough of the pulse wave
-  if(Signal < thresh && N > (IBI/5)*3){       // avoid dichrotic noise by waiting 3/5 of last IBI
+  //  find the peak and trough of the pulse wave
+  if(Signal < thresh && N > (IBI/5)*3) {       // avoid dichrotic noise by waiting 3/5 of last IBI
     if (Signal < T){                        // T is the trough
       T = Signal;                         // keep track of lowest point in pulse wave 
     }
@@ -43,32 +39,31 @@ ISR(TIMER2_COMPA_vect){                         // triggered when Timer2 counts 
 
   //  NOW IT'S TIME TO LOOK FOR THE HEART BEAT
   // signal surges up in value every time there is a pulse
-  if (N > 250){                                   // avoid high frequency noise
-    if ( (Signal > thresh) && (Pulse == false) && (N > (IBI/5)*3) ){        
+  if (N > 250) {                                   // avoid high frequency noise
+    if ( (Signal > thresh) && (Pulse == false) && (N > (IBI/5)*3) ) {        
       Pulse = true;                               // set the Pulse flag when we think there is a pulse
       digitalWrite(blinkPin,HIGH);                // turn on pin 13 LED
       IBI = sampleCounter - lastBeatTime;         // measure time between beats in mS
       lastBeatTime = sampleCounter;               // keep track of time for next pulse
 
-      if(secondBeat){                        // if this is the second beat, if secondBeat == TRUE
+      if(secondBeat) {                        // if this is the second beat, if secondBeat == TRUE
         secondBeat = false;                  // clear secondBeat flag
-        for(int i=0; i<=9; i++){             // seed the running total to get a realisitic BPM at startup
+        for(int i=0; i<=9; i++) {             // seed the running total to get a realisitic BPM at startup
           rate[i] = IBI;                      
         }
       }
 
-      if(firstBeat){                         // if it's the first time we found a beat, if firstBeat == TRUE
+      if(firstBeat) {                         // if it's the first time we found a beat, if firstBeat == TRUE
         firstBeat = false;                   // clear firstBeat flag
         secondBeat = true;                   // set the second beat flag
         sei();                               // enable interrupts again
         return;                              // IBI value is unreliable so discard it
       }   
 
-
       // keep a running total of the last 10 IBI values
       word runningTotal = 0;                  // clear the runningTotal variable    
 
-      for(int i=0; i<=8; i++){                // shift data in the rate array
+      for(int i=0; i<=8; i++) {                // shift data in the rate array
         rate[i] = rate[i+1];                  // and drop the oldest IBI value 
         runningTotal += rate[i];              // add up the 9 oldest IBI values
       }
@@ -82,7 +77,7 @@ ISR(TIMER2_COMPA_vect){                         // triggered when Timer2 counts 
     }                       
   }
 
-  if (Signal < thresh && Pulse == true){   // when the values are going down, the beat is over
+  if (Signal < thresh && Pulse == true) {   // when the values are going down, the beat is over
     digitalWrite(blinkPin,LOW);            // turn off pin 13 LED
     Pulse = false;                         // reset the Pulse flag so we can do it again
     amp = P - T;                           // get amplitude of the pulse wave
@@ -91,7 +86,7 @@ ISR(TIMER2_COMPA_vect){                         // triggered when Timer2 counts 
     T = thresh;
   }
 
-  if (N > 2500){                           // if 2.5 seconds go by without a beat
+  if (N > 2500) {                           // if 2.5 seconds go by without a beat
     thresh = 512;                          // set thresh default
     P = 512;                               // set P default
     T = 512;                               // set T default
